@@ -68,47 +68,23 @@ $n4 set X_ 10.0
 $n4 set Y_ 200.0
 $n4 set Z_ 0.0
 
-$n9 set X_ 50.0
-$n9 set Y_ 100.0
-$n9 set Z_ 0.0
-
-$n14 set X_ 90.0
-$n14 set Y_ 100.0
-$n14 set Z_ 0.0
-
-#Group 1
-$n1 set X_ 10.0
-$n1 set Y_ 70.0
-$n1 set Z_ 0.0
-
-$n2 set X_ 10.0
-$n2 set Y_ 50.0
-$n2 set Z_ 0.0
-
-$n3 set X_ -10.0
-$n3 set Y_ 50.0
-$n3 set Z_ 0.0
-
-$n4 set X_ -10.0
-$n4 set Y_ 70.0
-$n4 set Z_ 0.0
 
 
 
 # Create links with DropTail Queues
 #Group1
-$ns duplex-link $n0 $n1 1.5Mb 10ms DropTail
-$ns duplex-link $n0 $n3 1.5Mb 10ms DropTail
+$ns duplex-link $n1 $n0 1.5Mb 10ms DropTail
+$ns duplex-link $n3 $n0 1.5Mb 10ms DropTail
 $ns duplex-link $n3 $n2 1.5Mb 10ms DropTail
 $ns duplex-link $n1 $n2 1.5Mb 10ms DropTail
-$ns duplex-link $n2 $n4 1.5Mb 10ms DropTail
+$ns duplex-link $n3 $n4 1.5Mb 10ms DropTail
 
 #Group2
 $ns duplex-link $n5 $n6 1.5Mb 10ms DropTail
 $ns duplex-link $n5 $n7 1.5Mb 10ms DropTail
 $ns duplex-link $n7 $n8 1.5Mb 10ms DropTail
 $ns duplex-link $n8 $n6 1.5Mb 10ms DropTail
-$ns duplex-link $n8 $n9 1.5Mb 10ms DropTail
+$ns duplex-link $n7 $n9 1.5Mb 10ms DropTail
 
 #Group3
 $ns duplex-link $n10 $n11 1.5Mb 10ms DropTail
@@ -125,9 +101,9 @@ $ns duplex-link $n9 $n14 15Mb 99ms DropTail
 $ns duplex-link-op $n0 $n1 orient right
 $ns duplex-link-op $n0 $n3 orient down
 $ns duplex-link-op $n1 $n2 orient down
-$ns duplex-link-op $n2 $n4 orient down
+$ns duplex-link-op $n3 $n4 orient down
 $ns duplex-link-op $n4 $n9 orient right
-$ns duplex-link-op $n9 $n8 orient up
+$ns duplex-link-op $n9 $n7 orient up
 $ns duplex-link-op $n8 $n7 orient left
 $ns duplex-link-op $n7 $n5 orient up
 $ns duplex-link-op $n5 $n6 orient right
@@ -156,20 +132,23 @@ $ns duplex-link-op $n11 $n13 orient down
 #set mproto BST
 
 # Set two groups with group addresses
-
+#set mproto1 ST
 
 set group1 [Node allocaddr]
 set mproto1 CtrMcast
+
 set mrthandle1 [$ns mrtproto $mproto1 {}]
 $mrthandle1 set_c_rp $n0
 
 set group2 [Node allocaddr]
 set mproto2 CtrMcast
+#set mproto2 ST
 set mrthandle2 [$ns mrtproto $mproto2 {}]
 $mrthandle2 set_c_rp $n5
 
 set group3 [Node allocaddr]
 set mproto3 CtrMcast
+#set mproto3 ST
 set mrthandle3 [$ns mrtproto $mproto3 {}]
 $mrthandle3 set_c_rp $n10
 
